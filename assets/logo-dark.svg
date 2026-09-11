@@ -14,15 +14,15 @@
   <g transform="translate(18 16)">
     <path d="M8 96L114 8L214 92L196 112L114 44L28 112Z" fill="url(#roofGrad)"/>
     <path d="M188 44v52l14 14V38z" fill="#B7DA18"/>
-    <rect x="38" y="108" width="18" height="110" fill="#F5F2EA"/>
-    <rect x="170" y="108" width="18" height="110" fill="#F5F2EA"/>
-    <rect x="58" y="198" width="120" height="20" fill="#F5F2EA"/>
-    <circle cx="198" cy="22" r="14" fill="#F5F2EA"/>
+    <rect x="38" y="108" width="18" height="110" fill="#D3E9A3"/>
+    <rect x="170" y="108" width="18" height="110" fill="#D3E9A3"/>
+    <rect x="58" y="198" width="120" height="20" fill="#D3E9A3"/>
+    <circle cx="198" cy="22" r="14" fill="#D3E9A3"/>
     <circle cx="198" cy="22" r="7" fill="#D9EF9A"/>
-    <rect x="84" y="72" width="18" height="18" fill="#F5F2EA"/>
-    <rect x="106" y="72" width="18" height="18" fill="#F5F2EA"/>
-    <rect x="84" y="94" width="18" height="18" fill="#F5F2EA"/>
-    <rect x="106" y="94" width="18" height="18" fill="#F5F2EA"/>
+    <rect x="84" y="72" width="18" height="18" fill="#D3E9A3"/>
+    <rect x="106" y="72" width="18" height="18" fill="#D3E9A3"/>
+    <rect x="84" y="94" width="18" height="18" fill="#D3E9A3"/>
+    <rect x="106" y="94" width="18" height="18" fill="#D3E9A3"/>
     <path d="M58 198c8-56 54-84 104-80-12 33-30 58-58 80z" fill="#E4EBDD"/>
     <path d="M99 189c5-25 22-45 44-59" fill="none" stroke="#D7F08C" stroke-width="6" stroke-linecap="round"/>
   </g>
