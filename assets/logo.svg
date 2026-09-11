@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 268" role="img" aria-labelledby="title desc">
+  <title id="title">LeadRescuePro</title>
+  <desc id="desc">LeadRescuePro logo with house icon and tagline.</desc>
+  <defs>
+    <linearGradient id="roofGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#C7E11E"/>
+      <stop offset="100%" stop-color="#8EC310"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="980" height="268" fill="none"/>
+
+  <!-- House + leaf mark -->
+  <g transform="translate(18 16)">
+    <path d="M8 96L114 8L214 92L196 112L114 44L28 112Z" fill="url(#roofGrad)"/>
+    <path d="M188 44v52l14 14V38z" fill="#B7DA18"/>
+    <rect x="38" y="108" width="18" height="110" fill="#0C5B2D"/>
+    <rect x="170" y="108" width="18" height="110" fill="#0C5B2D"/>
+    <rect x="58" y="198" width="120" height="20" fill="#0C5B2D"/>
+    <circle cx="198" cy="22" r="14" fill="#0C5B2D"/>
+    <circle cx="198" cy="22" r="7" fill="#D9EF9A"/>
+    <rect x="84" y="72" width="18" height="18" fill="#0C5B2D"/>
+    <rect x="106" y="72" width="18" height="18" fill="#0C5B2D"/>
+    <rect x="84" y="94" width="18" height="18" fill="#0C5B2D"/>
+    <rect x="106" y="94" width="18" height="18" fill="#0C5B2D"/>
+    <path d="M58 198c8-56 54-84 104-80-12 33-30 58-58 80z" fill="#0A4A25"/>
+    <path d="M99 189c5-25 22-45 44-59" fill="none" stroke="#D7F08C" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(242 54)" fill="#0A2F17">
+    <text x="0" y="76" font-size="84" font-family="Georgia, 'Times New Roman', serif" letter-spacing="0.3">LeadRescuePro</text>
+    <text x="2" y="138" font-size="48" font-family="Arial, Helvetica, sans-serif" fill="#0A2F17">Never miss another plumbing job</text>
+  </g>
+</svg>
