@@ -1,11 +1,11 @@
-/* V4 form journey. No customer values are sent to analytics. */
+/* V5 owner booking journey. No customer values are sent to analytics. */
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 const SOCIAL_KEYS = ['social_platform', 'social_profile_type', 'social_post_id', 'social_post_url'];
 const REQUIRED_FIELDS = ['name', 'business_name', 'phone', 'city_state', 'missed_calls', 'best_time'];
 const FORM_NAME = 'free_missed_call_audit';
 const INTAKE_URL = '/api/marketing/leads/intake';
 const THANK_YOU_PATH = '/free-missed-call-audit/thank-you/';
-const RECEIPT_KEY = 'lrp_v4_audit_receipt';
+const RECEIPT_KEY = 'lrp_v5_audit_receipt';
 const trim = value => String(value ?? '').trim();
 
 export function normalizeWebsite(value) {
@@ -35,6 +35,9 @@ export function validateAuditPayload(payload) {
   if (trim(payload.website_or_gbp) && normalizeWebsite(payload.website_or_gbp) === null) {
     errors.website_or_gbp = 'Enter a valid website or Google Business Profile link.';
   }
+  const email = trim(payload.email);
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = 'Enter a valid email address.';
+  if (String(payload.contact_consent || '').toLowerCase() !== 'yes') errors.contact_consent = 'Please agree to receive calls and texts about your request.';
   return errors;
 }
 
@@ -86,7 +89,7 @@ function initializeFunnel() {
     sessionId = window.crypto?.randomUUID?.() || `session_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     storage.set('localStorage', 'lrp_marketing_session_id', sessionId);
   }
-  const source = document.body.dataset.pageSource || 'homepage_cinematic_v4';
+  const source = document.body.dataset.pageSource || 'homepage_cinematic_v5';
   const safeReferrer = (() => { try { const url = new URL(document.referrer); return url.origin + url.pathname; } catch { return ''; } })();
   let preview = false;
   const context = () => ({ session_id: sessionId, page_path: location.pathname, referrer: safeReferrer, source, ...utm, ...social });
@@ -129,11 +132,11 @@ function initializeFunnel() {
       if (heading) heading.textContent = recent ? 'Preview complete. No request was sent.' : 'This is the preview confirmation page.';
       if (message) message.textContent = 'This private preview uses a simulated form. No real audit request was sent, and nobody will call from this test.';
     } else if (recent) {
-      if (heading) heading.textContent = 'Thanks. Your audit request is received.';
-      if (message) message.textContent = 'We’ll contact you to review your call process and discuss where a dedicated AI receptionist number could help.';
+      if (heading) heading.textContent = 'Your audit request is in.';
+      if (message) message.textContent = 'Our AI scheduling assistant will call shortly to confirm fit and help you choose a time with your LeadRescuePro closer.';
     } else {
-      if (heading) heading.textContent = 'Let’s review your call process.';
-      if (message) message.textContent = 'Use the free-audit form to request a 10–15-minute review, or call LeadRescuePro to talk through your setup.';
+      if (heading) heading.textContent = 'Book a free audit.';
+      if (message) message.textContent = 'Submit the form to request a short review with a LeadRescuePro human closer.';
     }
   }
   if (location.pathname === THANK_YOU_PATH) {
@@ -166,7 +169,7 @@ function initializeFunnel() {
     element.dataset.state = error ? 'error' : 'status';
   }
   function showErrors(form, errors) {
-    [...REQUIRED_FIELDS, 'website_or_gbp'].forEach(name => {
+    [...REQUIRED_FIELDS, 'website_or_gbp', 'email', 'contact_consent'].forEach(name => {
       const field = form.elements.namedItem(name);
       if (!field) return;
       field.setAttribute('aria-invalid', errors[name] ? 'true' : 'false');
@@ -179,7 +182,7 @@ function initializeFunnel() {
   function serverErrors(data) {
     const result = {};
     if (!Array.isArray(data.fields)) return result;
-    const mappings = { full_name: 'name', company_name: 'business_name', phone: 'phone', city: 'city_state', state: 'city_state', missed_calls: 'missed_calls', best_time: 'best_time' };
+    const mappings = { full_name: 'name', company_name: 'business_name', phone: 'phone', city: 'city_state', state: 'city_state', missed_calls: 'missed_calls', best_time: 'best_time', email: 'email', contact_consent: 'contact_consent' };
     data.fields.forEach(message => {
       const key = Object.keys(mappings).find(field => String(message).startsWith(field));
       if (key) result[mappings[key]] = key === 'phone' ? 'Enter a valid U.S. phone number.' : 'Please check this field.';
@@ -221,7 +224,7 @@ function initializeFunnel() {
         await previewReady;
         trackingFields(form);
         const data = new FormData(form);
-        [...REQUIRED_FIELDS, 'website_or_gbp'].forEach(name => data.set(name, trim(data.get(name))));
+        [...REQUIRED_FIELDS, 'website_or_gbp', 'email', 'contact_consent'].forEach(name => data.set(name, trim(data.get(name))));
         data.set('website_or_gbp', normalizeWebsite(data.get('website_or_gbp')) || '');
         if (button && preview) button.textContent = 'Testing your request…';
         const controller = new AbortController();
