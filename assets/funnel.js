@@ -91,7 +91,8 @@ function initializeFunnel() {
   }
   const source = document.body.dataset.pageSource || 'homepage_cinematic_v5';
   const safeReferrer = (() => { try { const url = new URL(document.referrer); return url.origin + url.pathname; } catch { return ''; } })();
-  let preview = false;
+  let preview = location.hostname.endsWith('.github.io');
+  if (preview) displayPreview();
   const context = () => ({ session_id: sessionId, page_path: location.pathname, referrer: safeReferrer, source, ...utm, ...social });
   const allowedEvents = new Set(['page_view', 'cta_click', 'phone_click', 'audit_form_start', 'form_validation_error', 'form_submit_success', 'form_submit_failed', 'audit_thank_you_view']);
   function track(name, details = {}) {
@@ -230,8 +231,13 @@ function initializeFunnel() {
         const controller = new AbortController();
         const timeout = window.setTimeout(() => controller.abort(), 18000);
         let response;
-        try { response = await fetch(INTAKE_URL, { method: 'POST', body: data, credentials: 'same-origin', signal: controller.signal }); }
-        finally { window.clearTimeout(timeout); }
+        try {
+          if (preview) {
+            response = new Response(JSON.stringify({ ok: true, preview: true, leadId: `preview-${Date.now()}` }), { status: 200, headers: { 'content-type': 'application/json', 'X-LRP-Preview': '1' } });
+          } else {
+            response = await fetch(INTAKE_URL, { method: 'POST', body: data, credentials: 'same-origin', signal: controller.signal });
+          }
+        } finally { window.clearTimeout(timeout); }
         const rawResult = await response.json().catch(() => ({}));
         const result = rawResult && typeof rawResult === 'object' && !Array.isArray(rawResult) ? rawResult : {};
         if (!confirmedSubmission(response, result)) {
