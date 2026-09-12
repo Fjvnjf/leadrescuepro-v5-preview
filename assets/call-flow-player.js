@@ -137,7 +137,7 @@
     video
       .play()
       .then(() => {
-        announce("Playing the illustrated plumbing-call example.");
+        announce("Playing the narrated plumbing-call example.");
         syncControls();
       })
       .catch(() => {
@@ -207,7 +207,7 @@
     announce(
       reducedQuery.matches
         ? "Reduced motion is on. Use Next step to view the illustrated call."
-        : "Illustrated example · No live calls or customer data.",
+        : "Illustrated example · Voiceover starts when you press play. No live calls or customer data.",
     );
   };
   const chooseRoute = (route) => {
