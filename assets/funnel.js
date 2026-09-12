@@ -134,7 +134,7 @@ function initializeFunnel() {
       if (message) message.textContent = 'This private preview uses a simulated form. No real audit request was sent, and nobody will call from this test.';
     } else if (recent) {
       if (heading) heading.textContent = 'Your audit request is in.';
-      if (message) message.textContent = 'Our AI scheduling assistant will call shortly to confirm fit and help you choose a time with your LeadRescuePro closer.';
+      if (message) message.textContent = 'Next, our AI scheduling assistant will identify itself and call after your request is received and consent is confirmed, then help you choose a time with your LeadRescuePro closer.';
     } else {
       if (heading) heading.textContent = 'Book a free audit.';
       if (message) message.textContent = 'Submit the form to request a short review with a LeadRescuePro human closer.';
