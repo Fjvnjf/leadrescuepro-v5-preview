@@ -1,7 +1,7 @@
 /* V5 owner booking journey. No customer values are sent to analytics. */
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 const SOCIAL_KEYS = ['social_platform', 'social_profile_type', 'social_post_id', 'social_post_url'];
-const REQUIRED_FIELDS = ['name', 'business_name', 'phone', 'city_state', 'missed_calls', 'best_time'];
+const REQUIRED_FIELDS = ['name', 'business_name', 'phone', 'city_state', 'monthly_call_volume_estimate', 'missed_calls', 'best_time'];
 const FORM_NAME = 'free_missed_call_audit';
 const INTAKE_URL = '/api/marketing/leads/intake';
 const THANK_YOU_PATH = '/free-missed-call-audit/thank-you/';
@@ -183,7 +183,7 @@ function initializeFunnel() {
   function serverErrors(data) {
     const result = {};
     if (!Array.isArray(data.fields)) return result;
-    const mappings = { full_name: 'name', company_name: 'business_name', phone: 'phone', city: 'city_state', state: 'city_state', missed_calls: 'missed_calls', best_time: 'best_time', email: 'email', contact_consent: 'contact_consent' };
+    const mappings = { full_name: 'name', company_name: 'business_name', phone: 'phone', city: 'city_state', state: 'city_state', monthly_call_volume_estimate: 'monthly_call_volume_estimate', missed_calls: 'missed_calls', best_time: 'best_time', email: 'email', contact_consent: 'contact_consent' };
     data.fields.forEach(message => {
       const key = Object.keys(mappings).find(field => String(message).startsWith(field));
       if (key) result[mappings[key]] = key === 'phone' ? 'Enter a valid U.S. phone number.' : 'Please check this field.';
