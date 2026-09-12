@@ -22,9 +22,11 @@ Use this server rather than a generic static server. Its intake and analytics fi
 - A fictional homeowner’s “No hot water” call becomes a clearly labeled example lead. It does not become a booking. Your team remains responsible for callbacks, dispatch and service.
 - The outdated 42-second YouTube introduction is removed from V5 so visitors only see the current dedicated-number offer.
 - Both prices stay visible. Inclusions use labeled SVG illustrations; supporting explanations and FAQs use native disclosures.
-- Audit and thank-you explanations use three illustrated steps. Form controls, consent, validation, attribution, error handling, preview receipts and confirmed-success routing retain V4 behavior.
+- The owner path now sits before the customer story: tell us where calls may be slipping → AI scheduling assistant confirms fit → choose a time with a human closer → get a clear recommendation. The homepage and audit page both use the same primary form.
+- Forms collect name, business, phone, city/state, missed-call context, optional website/GBP and email, a follow-up choice, and explicit AI-assisted call/text consent. Errors retain entries and double-clicks are blocked.
+- Thank-you copy explains the AI scheduler’s role, expected call from (307) 400-7443, two appointment options, and the human closer’s audit/demo role. No booking or callback guarantee is implied.
 
-Only the homepage’s attribution source changes to `homepage_visual_v5`. The audit form identity remains `free_missed_call_audit`; audit page submission source remains `free_missed_call_audit_page`. Client code never emits the server-owned `audit_form_submit` conversion. `assets/funnel.js` is unchanged from V4.
+Only the homepage’s attribution source changes to `homepage_visual_v5`. The audit form identity remains `free_missed_call_audit`; audit page submission source remains `free_missed_call_audit_page`. Client code never emits the server-owned `audit_form_submit` conversion. `assets/funnel.js` now contains the V5 consent and optional-email validation. The GitHub Pages preview remains isolated and simulated; a production release must connect the form through an approved same-origin endpoint or secure proxy before collecting live leads.
 
 ## Files
 
