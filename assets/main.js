@@ -20,18 +20,6 @@
     document.getElementById('scenario-panel').setAttribute('aria-labelledby', tab.id);
   }
   tabs.forEach((tab, index) => { tab.addEventListener('click', () => selectScenario(tab)); tab.addEventListener('keydown', event => { let next; if (event.key === 'ArrowRight') next = (index + 1) % tabs.length; if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length; if (event.key === 'Home') next = 0; if (event.key === 'End') next = tabs.length - 1; if (next !== undefined) { event.preventDefault(); selectScenario(tabs[next]); tabs[next].focus(); } }); });
-  const videoButton = document.querySelector('#video-launch');
-  videoButton?.addEventListener('click', () => {
-    const iframe = document.createElement('iframe');
-    iframe.src = 'https://www.youtube-nocookie.com/embed/nySGRb_OOBQ?autoplay=1&rel=0';
-    iframe.title = 'LeadRescuePro introduction for plumbing businesses';
-    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-    iframe.allowFullscreen = true;
-    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-    videoButton.replaceWith(iframe);
-    document.querySelector('.video-fallback').hidden = false;
-    iframe.focus();
-  }, { once: true });
   const host = document.querySelector('#scene-host');
   if (!host) return;
   const poster = document.querySelector('#scene-poster');
